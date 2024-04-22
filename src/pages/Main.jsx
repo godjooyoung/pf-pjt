@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { styled } from 'styled-components';
 
 function Main() {
 
     return (
         <>
-					<h1>메인</h1>
+				<h1>메인</h1>
         </>
     );
 }
