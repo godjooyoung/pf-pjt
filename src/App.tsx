@@ -1,15 +1,14 @@
 import React from 'react';
 import './App.css';
+import Router from './shared/Router';
+import GlobalStyle from './style/GlobalStyle';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </header>
-    </div>
+	<>
+		<GlobalStyle />
+		<Router />
+	</>
   );
 }
 
