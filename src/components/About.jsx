@@ -1,13 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
 import { styled } from 'styled-components';
-
+import * as comm from "../style/commStyle"
 function About() {
 	return (
-		<SectionWrap>
-			<PageHeading>
-				F<HChar>RO</HChar>NTE<HChar>ND</HChar> DEVEL<HChar>O</HChar>PE<HChar>R,</HChar><br/>
-				J<HChar>OO</HChar> Y<HChar>O</HChar>UN<HChar>G</HChar>
-			</PageHeading>
+		<comm.SectionWrap>
+			<comm.PageHeading>
+				F<comm.HChar>RO</comm.HChar>NTE<comm.HChar>ND</comm.HChar> DEVEL<comm.HChar>O</comm.HChar>PE<comm.HChar>R,</comm.HChar><br/>
+				J<comm.HChar>OO</comm.HChar> Y<comm.HChar>O</comm.HChar>UN<comm.HChar>G</comm.HChar>
+			</comm.PageHeading>
 			<PageParagraphWrap>
 				<MainParagraph>
 					안녕하세요. 프론트앤드 개발자 신주영입니다.
@@ -23,29 +22,10 @@ function About() {
 					마지막까지 고민하며 개발하겠습니다.
 				</MainParagraph>
 			</PageParagraphWrap>
-		</SectionWrap>
+		</comm.SectionWrap>
 
 	);
 }
-export const SectionWrap = styled.div`
-	margin: 110px 0px;
-`
-
-export const PageHeading = styled.h1`
-	font-family: "Pretendard";
-	font-weight: 700;
-	font-size: 60px;
-	color: var(--gr-01);
-	text-align: center;
-	margin: 50px 0px 50px 0px;
-`
-
-export const HChar = styled.span`
-	font-family: "Galmuri9";
-	font-weight: 400;
-	font-size: 50px;
-	color: var(--gr-01);
-`
 
 export const PageParagraphWrap = styled.div`
 	display: flex;

@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { styled } from 'styled-components';
+import { styled } from 'styled-components'
+import * as comm from '../style/commStyle'
 
 function Skill() {
 	const skillsData = [
@@ -35,10 +35,10 @@ function Skill() {
 		},
 	]
 	return (
-		<SectionWrap>
-			<PageHeading>
-				TE<HChar>C</HChar>HNI<HChar>CA</HChar>L <HChar>S</HChar>KILL<HChar>S</HChar>
-			</PageHeading>
+		<comm.SectionWrap>
+			<comm.PageHeading>
+				TE<comm.HChar>C</comm.HChar>HNI<comm.HChar>CA</comm.HChar>L <comm.HChar>S</comm.HChar>KILL<comm.HChar>S</comm.HChar>
+			</comm.PageHeading>
 			<SkillCardsWrap>
 			{
 				skillsData.map((skillItem, idx) => {
@@ -61,29 +61,10 @@ function Skill() {
 				})
 			}
 			</SkillCardsWrap>
-		</SectionWrap>
+		</comm.SectionWrap>
 	);
 }
-export const SectionWrap = styled.div`
-	margin: 110px 0px;
-`
 
-export const PageHeading = styled.h1`
-	font-family: "Pretendard";
-	font-weight: 700;
-	font-size: 60px;
-	color: var(--gr-01);
-	text-align: center;
-	margin: 50px 0px 50px 0px;
-`
-
-export const HChar = styled.span`
-	font-family: "Galmuri9";
-	font-weight: 400;
-	font-size: 50px;
-	color: var(--gr-01);
-`
-	
 export const SkillCardsWrap = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -100,7 +81,7 @@ export const SkillCard = styled.div`
 	padding: 30px 24px 30px 36px;
 	position: relative;
 	${(props) => {
-		return props.idx%2==0 ? 'transform: translateX(50%);' : 'transform: translateX(-50%);'
+		return props.idx%2 === 0 ? 'transform: translateX(50%);' : 'transform: translateX(-50%);'
 	}};
 	&::before {
 		content: '';
@@ -109,7 +90,7 @@ export const SkillCard = styled.div`
     background-color: pink;
     position: absolute;
 		${(props) => {
-		return props.idx%2==0 ? 'left: -100%;' : 'right: -100%;'
+		return props.idx%2 === 0 ? 'left: -100%;' : 'right: -100%;'
 		}};
     top: 0px;
 	}
