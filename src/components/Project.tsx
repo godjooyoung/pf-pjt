@@ -19,13 +19,12 @@ interface Project {
 	filter: string[];
 }
 
-function Project() {
-	// 프로젝트 필터
-	const [filterState, setFilterState] = useState({
-		'filterId' : 'All',
-		'filterDesc' : '참여 프로젝트 전체보기'
-	})
+interface StyleProps {
+	img?: string;
+}
 
+function Project() {
+	// 필터
 	const filter: PjtFilter[] = [
 		{
 			'filterId': 'All',
@@ -59,10 +58,10 @@ function Project() {
 		}
 	]
 
-	// 프로젝트 내용
+	// 프로젝트
 	const pjt: Project[] = [
 		{
-			'img': '',
+			'img': 'preview_tteokguk.png',
 			'pjtTit': '니떡국 내떡국',
 			'pjtSubTit': '온라인 롤링페이퍼 서비스',
 			'pjtDue': '2023.12. - 2024.01.',
@@ -81,10 +80,10 @@ function Project() {
 					'link': ''
 				}
 			],
-			'filter': ['All', 'Service', 'Next.js']
+			'filter': ['All', 'Service', 'Next.js', 'TypeScript']
 		},
 		{
-			'img': '',
+			'img': 'preview_mogakkoOn.png',
 			'pjtTit': '모각코 ON:',
 			'pjtSubTit': '위치기반 화상채팅 서비스',
 			'pjtDue': '2023.05. - 2023.06.',
@@ -103,19 +102,19 @@ function Project() {
 					'link': ''
 				}
 			],
-			'filter': ['All', 'Service']
+			'filter': ['All', 'Service', 'webRTC']
 		},
 		{
-			'img': '',
+			'img': 'preview_thumbnailWizard.png',
 			'pjtTit': '개인 포트폴리오',
 			'pjtSubTit': '프론트앤드 개발자 포르폴리오 사이트',
-			'pjtDue': '',
+			'pjtDue': '진행중',
 			'keywords': ['React', 'TypeScript', '개인', 'MailJS'],
 			'links': [],
 			'filter': ['All', 'TypeScript']
 		},
 		{
-			'img': '',
+			'img': 'preview_thumbnailWizard.png',
 			'pjtTit': '한솔 모두의봄',
 			'pjtSubTit': '3D 홈스타일링 서비스',
 			'pjtDue': '2023.11 - 2024.01.',
@@ -126,10 +125,10 @@ function Project() {
 					'link': ''
 				},
 			],
-			'filter': ['All', 'Service', 'webRTC', 'TypeScript']
+			'filter': ['All', 'Service']
 		},
 		{
-			'img': '',
+			'img': 'preview_thumbnailWizard.png',
 			'pjtTit': 'Thumbnail Wizards',
 			'pjtSubTit': '크롬 확장프로그램',
 			'pjtDue': '',
@@ -144,14 +143,14 @@ function Project() {
 					'link': ''
 				},
 			],
-			'filter': ['All']
+			'filter': ['All', 'Service']
 		},
 		{
-			'img': '',
+			'img': 'preview_whereBnb.png',
 			'pjtTit': '웨어비앤비',
 			'pjtSubTit': '에어비앤비 클론 프로젝트',
 			'pjtDue': '',
-			'keywords': ['', '', '', ''],
+			'keywords': ['React', '카카오 소셜로그인', '필터링', 'SSE', '다중이미지 업로드', '캐러셀'],
 			'links': [
 				{
 					'name': 'GitHub',
@@ -166,6 +165,33 @@ function Project() {
 		},
 	]
 
+	// 프로젝트 필터 상태
+	const [filterState, setFilterState] = useState({
+		'filterId' : 'All',
+		'filterDesc' : '참여 프로젝트 전체보기'
+	})
+
+	// 프로젝트 목록 상태
+	const [pjtState, setPjtState] = useState(pjt)
+
+	// Hooks
+	useEffect(()=>{
+		if(filterState){
+			// 필터상태가 변경되면 프로젝트 상태도 변경된다.
+			const filteredPjt = pjt.filter(project => project.filter.includes(filterState.filterId))
+			setPjtState(filteredPjt)
+		}
+	},[filterState])
+
+	// 필터링 핸들러
+	const filterClickHandler = (filterId:string, filterDesc:string) => {
+		setFilterState(prevState => ({
+			...prevState,
+			filterId,
+			filterDesc
+		}));
+	}
+
 	return (
 		<comm.SectionWrap>
 			<comm.PageHeading>
@@ -175,7 +201,7 @@ function Project() {
 				{
 					filter.map((filterItem, idx) => {
 						return (
-							<FilterBtn onClick={()=>(console.log('test'))}>
+							<FilterBtn onClick={()=>(filterClickHandler(filterItem.filterId, filterItem.filterDesc))}>
 								<img src={`${process.env.PUBLIC_URL}/images/components/${filterItem.icon}`} />
 								<FilterText>{filterItem.filterId}</FilterText>
 							</FilterBtn>
@@ -186,6 +212,36 @@ function Project() {
 			<div>
 				<FilterDescText>{filterState.filterDesc}</FilterDescText>
 			</div>
+			<PjtGridWrap>
+				{
+					pjtState.map((pjtItem, idx)=>{
+						return <div>
+							<PjtPreview img={pjtItem.img}></PjtPreview>
+							<PjtInfoWrap>
+								<PjtInfoText>{pjtItem.pjtTit}</PjtInfoText>
+								<PjtSubInfoWrap>
+									<PjtSubInfoText>{pjtItem.pjtSubTit}</PjtSubInfoText>
+									<PjtSubInfoText>{pjtItem.pjtDue}</PjtSubInfoText>
+								</PjtSubInfoWrap>
+								<PjtKeywordWrap>
+									{
+										pjtItem.keywords.map((keyword)=>{
+											return <PjtKeywordText>{keyword}</PjtKeywordText>
+										})
+									}
+								</PjtKeywordWrap>
+								<PjtLinkWrap>
+									{
+										pjtItem.links.map((link)=>{
+											return <PjtLinkText>{link.name}</PjtLinkText>
+										})
+									}
+								</PjtLinkWrap>
+							</PjtInfoWrap>
+						</div>
+					})
+				}
+			</PjtGridWrap>
 		</comm.SectionWrap>
 	);
 }
@@ -236,4 +292,109 @@ export const FilterDescText = styled.p`
 	color: var(--gr-04);
 	text-align: center;
 `
+
+export const PjtGridWrap =  styled.div`
+	display: grid;
+	grid-template-columns: 380px 380px;
+	grid-template-rows: 345px 345px;
+	gap: 20px 20px;
+	width: fit-content;
+	margin: 0 auto;
+`
+export const PjtPreview = styled.div<StyleProps>`
+	width: 100%;
+	height: 135px;
+	border-top-right-radius: 20px;
+	border-top-left-radius: 20px;
+	border-top: 1px solid var(--gr-06);
+	border-left: 1px solid var(--gr-06);
+	border-right: 1px solid var(--gr-06);
+	border-bottom: 1px solid var(--gr-06);
+
+	background-image: ${(props) => {
+		return `url(${process.env.PUBLIC_URL}/images/components/${props.img})`
+	}};
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+`
+
+export const PjtInfoWrap = styled.div`
+	width: 100%;
+	height: 210px;
+	border-bottom-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-left: 1px solid var(--gr-06);
+	border-right: 1px solid var(--gr-06);
+	border-bottom: 1px solid var(--gr-06);
+	padding: 20px;
+`
+
+export const PjtInfoText = styled.h2`
+	font-family: "Pretendard";
+	font-weight: 700;
+	font-size: 15px;
+	color: var(--gr-03);
+`
+
+export const PjtSubInfoWrap =styled.div`
+	display: flex;
+	justify-content: space-between;
+`
+export const PjtSubInfoText = styled.p`
+	font-family: "Pretendard";
+	font-weight: 400;
+	font-size: 10px;
+	color: var(--gr-04);
+`
+
+export const PjtKeywordWrap = styled.div`
+		display: flex;
+		gap: 10px;
+		flex-wrap: wrap;
+		margin: 10px 0px;
+		width: 100%;
+		height: 96px;
+		align-content: flex-start;
+`
+
+export const PjtKeywordText = styled.p`
+	font-family: "Pretendard";
+	font-weight: 400;
+	font-size: 12px;
+	color: var(--gr-01);
+	padding: 5px 10px;
+	border: 1px solid var(--gr-05);
+	width: fit-content;
+	height: fit-content;
+	flex-grow: 0;
+	flex-shrink: 0;
+	flex-basis: fit-content;
+`
+
+export const PjtLinkWrap = styled.div`
+	display: flex;
+	column-gap: 6px;
+`
+export const PjtLinkText = styled.p`
+	font-family: "Pretendard";
+	font-weight: 400;
+	font-size: 10px;
+	color: var(--gr-01);
+	padding: 6px 16px;
+	background-color: var(--main-color-green);
+	border: 1px solid var(--main-color-green);
+	width: fit-content;
+	height: fit-content;
+	cursor: pointer;
+	&:hover {
+		background-color: #98E300;
+		color: var(--main-color-blue);
+	}
+	&:active {
+		background-color: #98E300;
+		color: var(--main-color-blue);
+	}
+`
+
 export default Project;
