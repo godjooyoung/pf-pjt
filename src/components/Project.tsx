@@ -105,7 +105,7 @@ function Project() {
 			'filter': ['All', 'Service', 'webRTC']
 		},
 		{
-			'img': 'preview_thumbnailWizard.png',
+			'img': 'preview_portfolio.png',
 			'pjtTit': '개인 포트폴리오',
 			'pjtSubTit': '프론트앤드 개발자 포르폴리오 사이트',
 			'pjtDue': '진행중',
@@ -114,7 +114,7 @@ function Project() {
 			'filter': ['All', 'TypeScript']
 		},
 		{
-			'img': 'preview_thumbnailWizard.png',
+			'img': 'preview_hansol.png',
 			'pjtTit': '한솔 모두의봄',
 			'pjtSubTit': '3D 홈스타일링 서비스',
 			'pjtDue': '2023.11 - 2024.01.',
